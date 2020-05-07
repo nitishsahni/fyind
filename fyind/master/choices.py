@@ -257,9 +257,22 @@ industries_choices = [
     ("IT", "Information Technology"),
     ("RE", "Retail"),
     ("AC", "Accounting"),
-    ("FS","Financial Services and Banking"),
+    ("FS", "Financial Services and Banking"),
     ("ED", "Education"),
-    ("HO", "Hospitality"),
+    ("TH", "Travel and Hospitality"),
+    ("MF", "Manufacturing"),
+    ("PH", "Pharmaceutical"),
+    ("TL", "Telecom"),
+    ("CG", "Consumer Goods"),
+    ("MM", "Mining and Minerals"),
+    ("TR", "Transport"),
+    ("RE", "Real Estate"),
+    ("AG", "Agriculture"),
+    ("BT", "Bio Technology"),
+    ("WH", "Warehousing"),
+    ("OS", "Outsourcing"),
+    ("AT", "Automobile"),
+    ("LG", "Luxury Goods"),
     ("OT", "Other")
 ]
 industries_dict = dict(industries_choices)
@@ -325,6 +338,7 @@ services_choices = [
                     ("TS", "Testing and Quality Assurance"),
                     ("OT", "Other")
 ]
+
 services_dict = dict(services_choices)
 
 skills_choices = [
@@ -378,8 +392,13 @@ engagement_choices = [
 ]
 engagement_dict = dict(engagement_choices)
 
-status_choices = [
+nature_choices = [
     ('CH', 'Change supplier'), ('NE', 'New Supplier')]
+
+status_choices = [
+    ('IP', 'In Progress'), ('DR', 'Dropped'), ("FL", "Fulfilled")
+]
+
 
 
 

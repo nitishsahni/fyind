@@ -10,20 +10,19 @@
   <title>Fyind</title>
   <!-- Bootstrap -->
 	<link href="{% static '/css/bootstrap-4.4.1.css' %} " rel="stylesheet">
+    <link href="{% static '/css/component-chosen.min.css' %} " rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/logo/logofavi.png' %}"/>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static '/js/popper.min.js' %}"></script>
     <script src="{% static '/js/bootstrap-4.4.1.js' %}"></script>
   <script src="{% static '/js/custom.js' %}"></script>
+    <script src="{% static '/js/chosen.jquery.min.js' %}"></script>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light p-4">
-    <a class="navbar-brand" href="">Fyind</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" href="" id="titlenav"><img src="{% static 'images/logo/logo.png' %}" width="40" height="40"></a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     </div>
   </nav>
@@ -33,17 +32,26 @@
       <div class="container">
         <div class="row align-self-center">
           <div class="col-12 align-self-center">
-              <br><br><br>
-            <h4 style="font-size: 60px;" class="p-2">Fyind</h4>
+              <br>
+              {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}" align="center">
+                        {{ message }}
+                    </div>
+            {% endfor %}
+            {% if form.errors %}
+            {{form.errors}}
+            {% endif %}
+              <br><br>
+              <h4 style="font-size: 60px;" class="p-2"><a onclick="toggleFunc2()" style="text-decoration:none; color:black; cursor:pointer;">
+                  FYIND</a></h4>
 			  <br>
-			  <p style="font-size: 40px;  font-weight:lighter;"class="pb-4">Helping you find an IT, BPS, AI/ML or Analytics partner in India.</p>
-              <div class="row justify-content-center" style="font-weight:lighter; font-size: 18px;">Are you looking to..</div><br>
+			  <p style="font-size: 40px;  font-weight:lighter;"class="pb-4">Retrace your technology services supply chain to get the right balance of capability, agility, risk and cost.</p>
+              <div class="row justify-content-center" style="font-weight:lighter; font-size: 18px;">To get started, please indicate whether you are keen to..</div><br>
 			  <div class="row justify-content-center">
 			              <p><a class="btn btn-dark btn-lg" role="button" id="change" onclick="toggleFunc(this.id)" style="color:white">
-                              Change your supplier</a></p> &nbsp;
+                              Find an alternate to your existing partner</a></p> &nbsp;
 			  <p><a class="btn btn-dark btn-lg" role="button" id="new" onclick="toggleFunc(this.id)" style="color:white">
-                  Partner with a new supplier</a></p>
-			  
+                  Expand or develop a new partner network</a></p>
 			  </div>
           </div>
         </div>
@@ -55,16 +63,18 @@
       <div class="container mt-2">
         <form method="post">
             {% csrf_token %}
+   <input type="text" class="form-control" id="nature" name="nature" value="CH" hidden>
+   <input type="text" class="form-control" id="status" name="status" value="IP" hidden>
 	<div class="form-row">
     	<div class="col-md-12 d-flex align-self-center ">
-      	<h5 id="toggleEl">&nbsp;</h5>
+      	<h5 id="toggleEl"></h5><h5>&nbsp;Some basic information will help us get started.</h5>
     	</div>
   </div>
 			<br>
   <div class="form-row">
     <div class="form-group col-md-3">
       <label for="inputEmail4">Name of Your Company</label>
-      <input type="text" class="form-control" id="name" name="name" placeholder="Your Enterprises Inc.">
+      <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Your Enterprises Inc." required>
     </div>
     <div class="form-group col-md-3">
       <label for="inputPassword4">Industry</label>
@@ -76,17 +86,17 @@
     </div>
 	  <div class="form-group col-md-3">
 		  <label for="inputPassword4"> &nbsp;</label>
-      <input type="text" class="form-control" id="city" name="city" placeholder="City">
+      <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Name of Contact</label>
-    <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Mac Lovin">
+    <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Mac Lovin" required>
     </div>
     <div class="form-group col-md-4">
       <label for="inputPassword4">Email</label>
-    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
     </div>
 	  <div class="form-group col-md-1">
       <label>Phone</label>
@@ -94,20 +104,70 @@
     </div>
 	  <div class="form-group col-md-3">
       <label for="inputPassword4">&nbsp;</label>
-      <input type="tel" class="form-control" id="phone_number" name="phone_number" placeholder="Phone number">
+      <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone number" required>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="inputCity">Services Required</label>
-      {{form.services|as_crispy_field}}
+      <label>Services Required</label><br>
+      <select multiple class="form-control form-control-chosen" id="sel1" data-placeholder="Select services" name="services" required>
+            <option value=AI> Artificial Intelligence / Machine Learning </option>
+            <option value=IO> Internet of Things </option>
+            <option value=CE> Cloud Enablement </option>
+            <option value=BC> Blockchain </option>
+            <option value=DV> Application Development </option>
+            <option value=DP> Application Deployment </option>
+            <option value=MN> Application Maintenance </option>
+            <option value=DS> Data Scientists </option>
+            <option value=CN> IT Consulting </option>
+            <option value=SM> IT Services Management </option>
+            <option value=SS> IT Support Services / Help Desk </option>
+            <option value=MS> Infrastructure Management Services </option>
+            <option value=IS> Information Security </option>
+            <option value=BM> Business Process Management </option>
+            <option value=PM> Project Management </option>
+            <option value=SL> Sales and Pre Sales </option>
+            <option value=SA> Solutions Architecting </option>
+            <option value=TS> Testing and Quality Assurance </option>
+            <option value=OT> Other </option>
+      </select>
 <small class="form-text text-muted">Choose one or more.</small>
     </div>
     <div class="form-group col-md-6">
-      <label for="inputState">Skills Required</label>
-      {{form.skills|as_crispy_field}}
+      <label>Skills Required</label>
+      <select multiple class="form-control form-control-chosen" id="sel2" data-placeholder="Select skills" name="skills" required>
+            <option value=SD> Software Developer </option>
+            <option value=UI> UI Developer </option>
+            <option value=WD> Web Developer </option>
+            <option value=MD> Media Developer </option>
+            <option value=TW> Technical Writer </option>
+            <option value=DE> Deployment Engineer </option>
+            <option value=MN> Application Maintenance Engineer </option>
+            <option value=DA> Data Associate </option>
+            <option value=ML> Machine Learning Expert </option>
+            <option value=BA> Business Analyst </option>
+            <option value=TS> Engineer Technical Support - Level 1 & 2 </option>
+            <option value=IE> Infrastructure Engineer </option>
+            <option value=SC> Security Analyst </option>
+            <option value=SA> Sales and Pre Sales Analyst </option>
+            <option value=TE> Test Engineer </option>
+            <option value=QA> QA Engineer </option>
+            <option value=BO> Back office Associates </option>
+            <option value=CS> Customer Service Associates </option>
+            <option value=OT> Other </option>
+      </select>
 <small class="form-text text-muted">Choose one or more.</small>
+        <script>
+            $(document).ready(function(e){
+                $("#sel1").chosen({
+                    width: "100%"
+                });
+                $("#sel2").chosen({
+                    width: "100%"
+                });
 
+            });
+        </script>
     </div>
   </div>
 <br>
@@ -133,19 +193,47 @@
   </div>
 	<div class="form-row">
     <div class="form-group col-md-12">
-      <label for="inputCity">Brief description of services</label>
+      <label>Brief description of services</label>
 		<textarea name="description" id="description" class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder=
 				  "We can help you better if you provide specific information about your needs..."></textarea>
+        <small class="form-text text-muted">This field is optional.</small>
     </div>
   </div>
 	<div class="form-row justify-content-center">
 		<button type="submit" class="btn btn-primary btn-dark">Submit</button>
-	</div>	
+	</div>
+    <small style="text-align:center;" class="form-text text-muted">
+        By clicking 'Submit', I hereby consent to receiving emails from FYIND.
+    </small>
 </form>
       </div>
     </section>
+      <br><br>
+      <div class="container" style="font-weight:lighter; display:none;" id="aboutSec">
+          <hr>
+          <section>
+              <h5 align="center"> ABOUT FYIND</h5><br>
+              FYIND is a Professional Service that helps organisations in strengthening
+              their supply chain of services with respect to its Information Technology
+              and Business Process Services needs.  We bring an extensive network of
+              reliable and capable Technology suppliers in India.
+              Our experts can make a recommendation of three to five suppliers
+              that may best align to your needs.  The recommendation will take
+              into consideration your industry, nature of services, skills
+              required and the scale and duration of the relationship.<br><br>
 
-    <br>
+                Our team has extensive experience in Next Gen solutions including
+              Artificial Intelligence / Machine Learning, Data Science, Digital,
+              Cloud, Blockchain and Internet of Things (IOT).<br><br>
+
+                In a nutshell, <i>our goal is to help you leverage the strength of
+              the skills and expertise available in India.</i><br><br>
+
+                We offer up to 2 hours of consultation without any cost.
+              Feel free to reach out to us at <a href = "mailto: service@fyind.io">service@fyind.io</a><br><br>
+              <br>
+         </section>
+      </div>
   </div>
 </body>
 </html>
