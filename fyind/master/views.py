@@ -29,13 +29,12 @@ def index(request):
             application.status = "IP"
             application.save()
             company = application.contact_name
-            emailTo = [application.email]
             subject = 'Thank you for your time, ' + company
             message = render_to_string('emailTemplate.html', {
                 'name': application.contact_name,
                 'company': application.company_name,
             })
-            email = EmailMessage(subject, message, from_email='service@fyind.io', to=emailTo, , 'nitin@kamadhenu.io')
+            email = EmailMessage(subject, message, from_email='service@fyind.io', to=[application.email], bcc=['nitin@kamadhenu.io'])
             email.send()
             messages.success(request, 'Thank you for your filling out the form. We will be reaching out to you soon.')
             return redirect('index')

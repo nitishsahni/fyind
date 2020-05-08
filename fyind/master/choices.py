@@ -1,4 +1,6 @@
 #List of dictionaries for the dropdown
+import collections
+
 countries_dict = {
     "AF": ("Afghanistan"),
     "AX": ("Åland Islands"),
@@ -277,7 +279,7 @@ industries_choices = [
 ]
 industries_dict = dict(industries_choices)
 
-phone_codes_dict = {
+unordered_phone_codes_dict = {
                     "BD": "880", "BE": "32", "BF": "226", "BG": "359", "BA": "387", "BB": "+1-246", "WF": "681",
                     "BL": "590", "BM": "+1-441", "BN": "673", "BO": "591", "BH": "973", "BI": "257", "BJ": "229",
                     "BT": "975", "JM": "+1-876", "BV": "", "BW": "267", "WS": "685", "BQ": "599", "BR": "55",
@@ -314,8 +316,10 @@ phone_codes_dict = {
                     "AO": "244", "AQ": "", "AS": "+1-684", "AR": "54", "AU": "61", "AT": "43", "AW": "297", "IN": "91",
                     "AX": "+358-18", "AZ": "994", "IE": "353", "ID": "62", "UA": "380", "QA": "974", "MZ": "258"
                     }
-phone_codes_choices = [(k, v) for k, v in phone_codes_dict.items()]
 
+phone_codes_dict = collections.OrderedDict(sorted(unordered_phone_codes_dict.items()))
+
+phone_codes_choices = [(k, k + " " + "(" + v + ")") for k, v in phone_codes_dict.items()]
 
 services_choices = [
                     ("AI", "Artificial Intelligence / Machine Learning"),
