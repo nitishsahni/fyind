@@ -2,33 +2,34 @@
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fyind</title>
-  <!-- Bootstrap -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Nitish Sahni">
+    <meta name="keywords" content="Nitin Sahni, FYIND, supply chain, fyind, IT, it, technology, Nitish Sahni">
+    <meta name="description" content="FYIND is a Professional Service that helps organisations in strengthening
+    their supply chain of services with respect to its Information Technology and Business Process Services needs.">
+    <title>Fyind</title>
+    <!-- Bootstrap -->
 	<link href="{% static '/css/bootstrap-4.4.1.css' %} " rel="stylesheet">
     <link href="{% static '/css/component-chosen.min.css' %} " rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/logo/logofavi.png' %}"/>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static '/js/popper.min.js' %}"></script>
     <script src="{% static '/js/bootstrap-4.4.1.js' %}"></script>
-  <script src="{% static '/js/custom.js' %}"></script>
+    <script src="{% static '/js/custom.js' %}"></script>
     <script src="{% static '/js/chosen.jquery.min.js' %}"></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light p-4">
+    <nav class="navbar navbar-expand-lg navbar-light p-4">
     <a class="navbar-brand" href="" id="titlenav"><img src="{% static 'images/logo/logo.png' %}" width="40" height="40"></a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     </div>
-  </nav>
-  <section>
+    </nav>
+    <section>
     <div class="jumbotron text-center mt-2 bg-white">
-        <!-- <img class="annie" src="../static/images/annie-spratt-QckxruozjRg-unsplash.jpg"> -->
       <div class="container">
         <div class="row align-self-center">
           <div class="col-12 align-self-center">
@@ -63,9 +64,9 @@
       <div class="container mt-2">
         <form method="post">
             {% csrf_token %}
-   <input type="text" class="form-control" id="nature" name="nature" value="CH" hidden>
-   <input type="text" class="form-control" id="status" name="status" value="IP" hidden>
-	<div class="form-row">
+    <input type="text" class="form-control" id="nature" name="nature" value="CH" hidden>
+    <input type="text" class="form-control" id="status" name="status" value="IP" hidden>
+    <div class="form-row">
     	<div class="col-md-12 d-flex align-self-center ">
       	<h5 id="toggleEl"></h5><h5>&nbsp;Some basic information will help us get started.</h5>
     	</div>
@@ -73,19 +74,19 @@
 			<br>
   <div class="form-row">
     <div class="form-group col-md-3">
-      <label for="inputEmail4">Name of Your Company</label>
+      <label>Name of Your Company</label>
       <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Your Enterprises Inc." required>
     </div>
     <div class="form-group col-md-3">
-      <label for="inputPassword4">Industry</label>
+      <label>Industry</label>
       {{form.industry|as_crispy_field}}
     </div>
     <div class="form-group col-md-3">
-      <label for="inputPassword4">Company Headquarters</label>
+      <label>Company Headquarters</label>
       {{form.country|as_crispy_field}}
     </div>
 	  <div class="form-group col-md-3">
-		  <label for="inputPassword4"> &nbsp;</label>
+		  <label> &nbsp;</label>
       <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
     </div>
   </div>
@@ -95,7 +96,7 @@
     <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Mac Lovin" required>
     </div>
     <div class="form-group col-md-4">
-      <label for="inputPassword4">Email</label>
+      <label>Email</label>
     <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
     </div>
 	  <div class="form-group col-md-1">
@@ -103,7 +104,7 @@
       {{form.phone_code|as_crispy_field}}
     </div>
 	  <div class="form-group col-md-3">
-      <label for="inputPassword4">&nbsp;</label>
+      <label>&nbsp;</label>
       <input type="number" class="form-control" id="phone_number" name="phone_number" placeholder="Phone number" required>
     </div>
   </div>
@@ -173,20 +174,20 @@
 <br>
 	<div class="form-row">
 			<div class="form-group col-md-3">
-      <label for="inputPassword4">Number of Staff</label>
+      <label>Number of Staff</label>
       {{form.staff|as_crispy_field}}
     </div>
 	  <div class="form-group col-md-3">
-      <label for="inputPassword4">Estimated Project Value</label>
+      <label>Estimated Project Value</label>
       {{form.epv|as_crispy_field}}
     </div>
 	  <div class="form-group col-md-3">
-      <label for="inputPassword4">Engagement Term</label>
+      <label>Engagement Term</label>
       {{form.engagement|as_crispy_field}}
 	<small class="form-text text-muted">Duration for which you wish to engage with the new supplier.</small>
     </div>
 	<div class="form-group col-md-3">
-      <label for="inputState">Urgency</label>
+      <label>Urgency</label>
       {{form.urgency|as_crispy_field}}
 			<small class="form-text text-muted">Time frame within which you want to firm up a new supplier.</small>
     </div>

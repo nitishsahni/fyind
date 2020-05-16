@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.forms import ModelForm
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from crispy_forms.helper import FormHelper
 from django.template.loader import render_to_string
@@ -28,15 +27,19 @@ def index(request):
             application = form.save(commit=False)
             application.status = "IP"
             application.save()
-            company = application.contact_name
-            subject = 'Thank you for your time, ' + company
+            subject = 'Thank you for your time, ' + application.company
             message = render_to_string('emailTemplate.html', {
                 'name': application.contact_name,
                 'company': application.company_name,
+                'email': application.email,
+                'phone':application.phone_number
             })
-            email = EmailMessage(subject, message, from_email='service@fyind.io', to=[application.email], bcc=['nitin@kamadhenu.io'])
+            email = EmailMessage(subject, message, from_email='service@fyind.io', to=[application.email],
+                                 bcc=['nitin@kamadhenu.io'])
             email.send()
-            messages.success(request, 'Thank you for your filling out the form. We will be reaching out to you soon.')
+            messages.success(request, 'Thank you for taking out time and filling out the form. A confirmation mail '
+                                      'has been sent to you. We will be reaching out to you soon to carry this '
+                                      'forward.')
             return redirect('index')
         else:
             form = Form()

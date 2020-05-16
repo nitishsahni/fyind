@@ -15,7 +15,7 @@ function findPos(obj) {
 function doScroll() {
 	console.log("test");
 	window.scrollTo({
-		top: findPos(document.getElementById("toggleEl")) - 30,
+		top: findPos(document.getElementById("toggleEl")) - 20,
 		left: 0,
 		behavior: "smooth",
 	});

@@ -277,7 +277,6 @@ industries_choices = [
     ("LG", "Luxury Goods"),
     ("OT", "Other")
 ]
-industries_dict = dict(industries_choices)
 
 unordered_phone_codes_dict = {
                     "BD": "880", "BE": "32", "BF": "226", "BG": "359", "BA": "387", "BB": "+1-246", "WF": "681",
@@ -316,9 +315,7 @@ unordered_phone_codes_dict = {
                     "AO": "244", "AQ": "", "AS": "+1-684", "AR": "54", "AU": "61", "AT": "43", "AW": "297", "IN": "91",
                     "AX": "+358-18", "AZ": "994", "IE": "353", "ID": "62", "UA": "380", "QA": "974", "MZ": "258"
                     }
-
 phone_codes_dict = collections.OrderedDict(sorted(unordered_phone_codes_dict.items()))
-
 phone_codes_choices = [(k, k + " " + "(" + v + ")") for k, v in phone_codes_dict.items()]
 
 services_choices = [
@@ -343,8 +340,6 @@ services_choices = [
                     ("OT", "Other")
 ]
 
-services_dict = dict(services_choices)
-
 skills_choices = [
             ("SD", "Software Developer"),
             ("UI", "UI Developer"),
@@ -366,14 +361,12 @@ skills_choices = [
             ("CS", "Customer Service Associates"),
             ("OT", "Other")
 ]
-skills_dict = dict(skills_choices)
 
 epv_choices = [('1', '< $500,000'),
                ('2', '$500,000 to $1,000,000'),
                ('3', '$1,000,000 to $5,000,000' ),
                ('4', '> $5,000,000')
                ]
-epv_dict = dict(epv_choices)
 
 urgency_choices = [
     ('1', '< 1 month'),
@@ -381,7 +374,6 @@ urgency_choices = [
     ('3', '3-6 months' ),
     ('4', '> 6 months')
 ]
-urgency_dict = dict(urgency_choices)
 
 staff_choices = [
                  ('1', '< 25'),
@@ -389,12 +381,10 @@ staff_choices = [
                  ('3', '51 to 100' ),
                  ('4', '> 100')
                  ]
-staff_dict = dict(staff_choices)
 
 engagement_choices = [
     ('1', '< 6 months'), ('2', '6 to 12 month'), ('3', '12 to 24 months' ), ('4', '> 24 months')
 ]
-engagement_dict = dict(engagement_choices)
 
 nature_choices = [
     ('CH', 'Change supplier'), ('NE', 'New Supplier')]
